@@ -26,22 +26,22 @@ jobs:
           ls . 
 
       - name: Workflow Canary
-        id: canary
+        id: check
         uses: ash-shepard/workflow-canary/.github/actions/workflow-canary@main
         with: 
           percentage: 10
 
       - name: Check Canary
         run: |
-          echo "canary: ${{ steps.canary.outputs.canary }}"
+          echo "canary: ${{ steps.check.outputs.canary }}"
 
       - name: run if canary is true
-        if: ${{ steps.canary.outputs.canary == 'true' }}
+        if: ${{ steps.check.outputs.canary == 'true' }}
         run: |
           echo "hello world. We should only run this step if canary is true."
 
       - name: run if canary is false
-        if: ${{ steps.canary.outputs.canary == 'false' }}
+        if: ${{ steps.check.outputs.canary == 'false' }}
         run: |
           echo "hello again, world. We should only see this if canary is false."
 
